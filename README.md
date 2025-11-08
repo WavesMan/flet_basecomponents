@@ -314,4 +314,5 @@ page.add(scrollable_content)
 
 ## LICENSE
 Flet_BaseComponents 依据 [MIT License](LICENSE) 创建.
+
 本项目以 Flet 框架为基础, 因此，请遵守 Flet 的许可协议: [Apache License 2.0](flet_LICENSE).
