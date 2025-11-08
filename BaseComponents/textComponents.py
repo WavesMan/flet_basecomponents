@@ -58,7 +58,7 @@ class Layout:
     """布局组件类，用于快速创建不同对齐方式的文本容器"""
 
     @staticmethod
-    def create_container(content, alignment=ft.alignment.center, expand=True, bgcolor=None, **kwargs):
+    def create_container(content, alignment=ft.alignment.center_left, expand=True, bgcolor=None, **kwargs):
         """创建容器
 
         Args:
@@ -99,6 +99,7 @@ class Layout:
         return Layout.create_container(
             content=text_obj,
             alignment=ft.alignment.center,
+            bgcolor=ft.Colors.TRANSPARENT,  # 显式设置透明背景
             **container_kwargs
         )
 
@@ -120,6 +121,7 @@ class Layout:
         return Layout.create_container(
             content=text_obj,
             alignment=ft.alignment.center_right,
+            bgcolor=ft.Colors.TRANSPARENT,  # 显式设置透明背景
             **container_kwargs
         )
 
@@ -141,6 +143,38 @@ class Layout:
         return Layout.create_container(
             content=text_obj,
             alignment=ft.alignment.center_left,
+            bgcolor=ft.Colors.TRANSPARENT,  # 显式设置透明背景
+            **container_kwargs
+        )
+
+    @staticmethod
+    def create_text_block(text, size=16, color=None, text_align=ft.TextAlign.LEFT, **container_kwargs):
+        """创建带文本对齐控制的文本块
+        
+        Args:
+            text: 文本内容或ft.Text对象
+            size: 字体大小
+            color: 字体颜色
+            text_align: 文本对齐方式
+            **container_kwargs: 容器额外参数
+        """
+        if isinstance(text, str):
+            text_obj = BaseText.create_text(text, size, color, text_align)
+        else:
+            text_obj = text
+            
+        # 根据文本对齐方式设置容器对齐
+        alignment_map = {
+            ft.TextAlign.LEFT: ft.alignment.center_left,
+            ft.TextAlign.CENTER: ft.alignment.center,
+            ft.TextAlign.RIGHT: ft.alignment.center_right,
+            ft.TextAlign.JUSTIFY: ft.alignment.center_left,
+        }
+        
+        return Layout.create_container(
+            content=text_obj,
+            alignment=alignment_map.get(text_align, ft.alignment.center_left),
+            bgcolor=ft.Colors.TRANSPARENT,  # 显式设置透明背景
             **container_kwargs
         )
 
@@ -253,6 +287,11 @@ def right_text(text, size=30, color=None, **kwargs):
 def left_text(text, size=30, color=None, **kwargs):
     """快速创建居左文本的便捷函数"""
     return Layout.left_text(text, size, color, **kwargs)
+
+
+def aligned_text(text, size=16, color=None, align=ft.TextAlign.LEFT, **kwargs):
+    """创建指定对齐方式的文本的便捷函数"""
+    return Layout.create_text_block(text, size, color, align, **kwargs)
 
 
 def heading(text, level=1, color=None):

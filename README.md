@@ -27,6 +27,7 @@ BaseComponents/
 - `center_text(text, size=30, color=None, **kwargs)` - 创建居中文本
 - `right_text(text, size=30, color=None, **kwargs)` - 创建居右文本
 - `left_text(text, size=30, color=None, **kwargs)` - 创建居左文本
+- `aligned_text(text, size=16, color=None, align=ft.TextAlign.LEFT, **kwargs)` - 创建指定对齐方式的文本
 - `heading(text, level=1, color=None)` - 创建标题文本 (level 1-6)
 - `body(text, size=14, color=None)` - 创建正文文本
 - `caption(text, color=None)` - 创建说明文字
@@ -42,7 +43,9 @@ page.add(
     body("这是一段正文内容"),
     caption("这是一段说明文字"),
     link("带下划线的链接", url="https://example.com"),
-    link("不带下划线的链接", url="https://example.com", underline=False)
+    link("不带下划线的链接", url="https://example.com", underline=False),
+    aligned_text("居中文本", size=20, align=ft.TextAlign.CENTER),
+    aligned_text("居右文本", size=20, align=ft.TextAlign.RIGHT)
 )
 ```
 
